@@ -60,7 +60,7 @@ This project is a backend application built with Node.js, Express, and MongoDB. 
 -in progress
 
 ## Project Structure
-
+```
 ├── config
 │ └── db.js # Database connection configuration
 ├── controllers
@@ -76,7 +76,7 @@ This project is a backend application built with Node.js, Express, and MongoDB. 
 ├── app.js # Main application file
 ├── package.json # NPM package configuration
 └── README.md # Project documentation
-
+```
 
 ## Contributing
 
