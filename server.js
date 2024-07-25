@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const dbConnect = require("./config/db")
+const errorHandler = require("./middlewares/errorHandler")
 
 dotenv.config()
 //database configuration
@@ -14,7 +15,12 @@ const Port = process.env.PORT || 5000
 app.use(express.json());
 app.use("/api/users",require("./routes/userRoutes"))
 
-// Middleware to log incoming requests
+// handle undefined routes
+app.use(errorHandler.invalidRoute)
+// Middleware to handle error responses
+
+app.use(errorHandler.errResponserHandler)
+
 
 app.listen(Port, (req, res) => {
     console.log(`Server is running on http://localhost:${Port}`);
