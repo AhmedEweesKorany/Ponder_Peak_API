@@ -55,8 +55,49 @@ const getAllusers = async(req,res,next)=>{
       next(error)
     }
 }
+
+// get User Profile
+const userProfile = async (req,res,next)=>{
+
+  try {
+    let user = await User.findById(req.id).select("-password").lean()
+    if(!user ) throw new Error(`User not found`)
+    return res.status(200).json({user})
+  } catch (error) {
+    next(error)
+  }
+}
+
+// update profile 
+const updateProfile = async (req,res,next)=>{
+  try {
+    const {name,email,avatar,newPassword,oldPassword} = req.body
+    let user = await User.findById(req.id)
+
+    if(!user) throw new Error(`User not found`)
+    
+    user.email = email || user.email
+    user.name = name || user.name
+    if(newPassword && newPassword.length <8) {
+        throw new Error(`Password must be at least 8 characters`)
+    }else{
+      if(user.passwordCompare(oldPassword)){
+        user.password = newPassword
+      }else{
+        throw new Error("invalid old password")
+      }
+    }
+
+    const updatedUser = await user.save()
+    res.status(200).json({data: updatedUser,message: "updated successfully"})
+  } catch (error) {
+
+    next(error)
+    
+  }
+}
 module.exports = {
   registerUser,
   getAllusers,
-  login
+  login,userProfile,updateProfile
 };
