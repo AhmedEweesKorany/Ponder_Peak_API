@@ -1,0 +1,110 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "blog_app_backend",
+    "collectionId": "d72a60d6-44b1-447e-a77c-b04377a36952",
+    "dateExported": "2024-07-26T21:07:15.727Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "e5136a6f-1d8c-4eac-97f5-841e91ed820e",
+            "colId": "d72a60d6-44b1-447e-a77c-b04377a36952",
+            "containerId": "",
+            "name": "create new user (register)",
+            "url": "{{domain}}api/users/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-07-24T11:08:30.100Z",
+            "modified": "2024-07-26T19:20:20.256Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\":\"othman\",\n  \"email\":\"othman@gmail.com\",\n  \"password\":\"123456789\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "c79d57da-ed9d-4457-bfb1-0a7c2bdd5941",
+            "colId": "d72a60d6-44b1-447e-a77c-b04377a36952",
+            "containerId": "",
+            "name": "getAlIsers",
+            "url": "{{domain}}api/users/all",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-07-24T11:20:18.369Z",
+            "modified": "2024-07-25T15:52:42.636Z",
+            "headers": []
+        },
+        {
+            "_id": "5f479cad-c6f0-485c-861a-81188e3eff9d",
+            "colId": "d72a60d6-44b1-447e-a77c-b04377a36952",
+            "containerId": "",
+            "name": "login",
+            "url": "{{domain}}api/users/login",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-07-25T15:52:04.725Z",
+            "modified": "2024-07-26T20:41:28.877Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n   \"email\":\"othman2@gmail.com\",\n  \"password\":\"1234567899\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "65e1af98-ca8b-4502-a312-9bfab5352028",
+            "colId": "d72a60d6-44b1-447e-a77c-b04377a36952",
+            "containerId": "",
+            "name": "get userProfile",
+            "url": "{{domain}}api/users/profile",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-07-26T11:57:08.658Z",
+            "modified": "2024-07-26T19:21:11.107Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTNmNmY0NDQzNGFiN2I0MDE4YWJlNSIsImlhdCI6MTcyMjAyMTY1MCwiZXhwIjoxNzI0NjEzNjUwfQ.dnYUfYXK2SjKpIoIohTTWUzRjspc66XCSTSsZe3-jzk"
+            }
+        },
+        {
+            "_id": "ec4e5ced-6cd2-4f0d-93a6-36edc573b285",
+            "colId": "d72a60d6-44b1-447e-a77c-b04377a36952",
+            "containerId": "",
+            "name": "update user profile",
+            "url": "{{domain}}api/users/updateProfile",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2024-07-26T13:25:22.796Z",
+            "modified": "2024-07-26T19:29:09.098Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\":\"othman2\",\n  \"email\":\"othman2@gmail.com\",\n  \"oldPassword\":\"1234567899\",\n  \"newPassword\":\"12345\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTNmNmY0NDQzNGFiN2I0MDE4YWJlNSIsImlhdCI6MTcyMjAyMTY1MCwiZXhwIjoxNzI0NjEzNjUwfQ.dnYUfYXK2SjKpIoIohTTWUzRjspc66XCSTSsZe3-jzk"
+            }
+        },
+        {
+            "_id": "0948e545-5666-4dcf-b0ee-138c466ec462",
+            "colId": "d72a60d6-44b1-447e-a77c-b04377a36952",
+            "containerId": "",
+            "name": "updateProfile Picture",
+            "url": "{{domain}}api/users/updateProfilePicture",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2024-07-26T20:40:15.139Z",
+            "modified": "2024-07-26T20:45:17.568Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTNmNmY0NDQzNGFiN2I0MDE4YWJlNSIsImlhdCI6MTcyMjAyNjQ4OCwiZXhwIjoxNzI0NjE4NDg4fQ.5-Z_AVAr3YUHZ40W9J51UBUfUs1wjW7P59MVib2eEZQ"
+            }
+        }
+    ],
+    "ref": "9VhQp8iJVQ5y_tMgBndEeamDIa32EcFXWiO5pe9Pb8bbjJva09A-__bpF8n1SgN3GBTIzgD1ay0V6zxSk-YUIw"
+}
