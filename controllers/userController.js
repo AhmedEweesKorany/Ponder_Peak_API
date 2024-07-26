@@ -1,6 +1,10 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs")
+const uploadPicture = require("../middlewares/uploadPictureMiddleware");
+const fileRemover = require("../utils/fileRemover");
+
 // create user register function
+
 const registerUser = async (req, res,next) => {
   try {
     const { name, email, password } = req.body;
@@ -65,7 +69,7 @@ const userProfile = async (req,res,next)=>{
     return res.status(200).json({user})
   } catch (error) {
     next(error)
-  }
+  } 
 }
 
 // update profile 
@@ -81,8 +85,9 @@ const updateProfile = async (req,res,next)=>{
     if(newPassword && newPassword.length <8) {
         throw new Error(`Password must be at least 8 characters`)
     }else{
-      if(user.passwordCompare(oldPassword)){
-        user.password = newPassword
+      if(await user.passwordCompare(oldPassword)){
+        let hashedPassword = await bcrypt.hash(newPassword,10)
+        user.password = hashedPassword
       }else{
         throw new Error("invalid old password")
       }
@@ -96,8 +101,37 @@ const updateProfile = async (req,res,next)=>{
     
   }
 }
+
+// update profile picture
+const updateProfilePicture = async(req,res,next)=>{
+  try {
+    const upload = uploadPicture.single('profilePicture')
+    upload(req,res,async (err)=>{
+      if(err){
+        const error = new Error("unkonwn error uploading "+ err.message)
+        next(error)
+      }else{
+        if(req.file){
+          const updatedUser = await User.findByIdAndUpdate(req.id,{
+            avatar:req.file.filename,
+          },{new:true})
+
+          res.status(200).json({data: updatedUser,message: "profile picture updated successfully"})
+        }else{
+          let updatedUser =await User.findById(req.id)
+          fileRemover(updatedUser.avatar)
+          updatedUser.avatar = ""
+          await updatedUser.save()
+          res.status(200).json({data: updatedUser,message: "profile picture removed successfully"})
+        }
+      }
+    })
+  } catch (error) {
+    next(error)
+  }
+}
 module.exports = {
   registerUser,
   getAllusers,
-  login,userProfile,updateProfile
+  login,userProfile,updateProfile,updateProfilePicture
 };

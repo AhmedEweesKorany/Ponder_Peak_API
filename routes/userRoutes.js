@@ -8,5 +8,6 @@ router.post('/login',userController.login)
 router.get("/all",userController.getAllusers)
 router.get("/profile",authGurad,userController.userProfile)
 router.put("/updateProfile",authGurad,userController.updateProfile)
+router.put("/updateProfilePicture",authGurad,userController.updateProfilePicture)
 
 module.exports = router 
