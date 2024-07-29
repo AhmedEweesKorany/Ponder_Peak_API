@@ -113,7 +113,7 @@ const updateProfilePicture = async(req,res,next)=>{
       }else{
         if(req.file){
           const updatedUser = await User.findByIdAndUpdate(req.id,{
-            avatar:req.file.filename,
+            avatar:req.file.filename, 
           },{new:true})
 
           res.status(200).json({data: updatedUser,message: "profile picture updated successfully"})

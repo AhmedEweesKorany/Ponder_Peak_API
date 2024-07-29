@@ -3,6 +3,7 @@ const userController = require("../controllers/userController")
 const router = express.Router()
 const authGurad = require("../middlewares/authMiddleware")
 
+// user Routes
 router.post('/register',userController.registerUser)
 router.post('/login',userController.login)
 router.get("/all",userController.getAllusers)

@@ -31,12 +31,12 @@ This project is a backend application built with Node.js, Express, and MongoDB. 
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
+    git clone https://github.com/AhmedEweesKorany/blog_app_backend.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd your-repo-name
+    cd blog_app_backend
     ```
 
 3. Install the dependencies:
@@ -93,4 +93,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For any questions or feedback, please contact me at [your-email@example.com](mailto:your-email@example.com).
+For any questions or feedback, please contact me at [ahmedewaisvi34@gmail.com](mailto:ahmedewaisvi34@gmail.com).
