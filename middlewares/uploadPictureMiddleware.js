@@ -17,11 +17,12 @@ const uploadPicture = multer({
     fileFilter: (req,file,cb)=>{
         let ext = path.extname(file.originalname
         )
-        if(ext !== ".jpg" && ext !== ".png" && ext !== ".jpeg"){
+        if(ext !== ".jpg" && ext !== ".png" && ext !== ".jpeg" ){
             cb(new Error("Only .jpg,.png,.jpeg files are allowed"), false)
         
+        }else{
+            cb(null,true) // accept file
         }
-        cb(null,true) // accept file
 
     }
 })

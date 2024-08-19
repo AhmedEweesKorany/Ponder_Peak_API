@@ -16,6 +16,8 @@ app.use(cors())
 app.use(express.json());
 app.use("/api/users",require("./routes/userRoutes"))
 
+app.use('/uploads', express.static('uploads'));
+
 // handle undefined routes
 app.use(errorHandler.invalidRoute)
 // Middleware to handle error responses
