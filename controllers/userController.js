@@ -28,7 +28,7 @@ const registerUser = async (req, res,next) => {
   }
 };
 
-// login endpoint 
+// login endpoint
 const login = async (req, res, next) => {
 try {
   const {email,password} = req.body;
@@ -41,19 +41,19 @@ try {
       token: await user.generateJWT(),
       message: "login successful",
     });
- 
+
 } catch (error) {
   next(error);
-  
-}  
+
+}
 }
 
-// get all users 
+// get all users
 const getAllusers = async(req,res,next)=>{
 
   try {
-    let user = await User.find().select("-password").lean()
-    return res.status(200).json({user})
+    let users = await User.find().select("-password").lean()
+    return res.status(200).json({users})
   } catch (error) {
       error.message = error.message || "internal server error"
       next(error)
@@ -63,43 +63,52 @@ const getAllusers = async(req,res,next)=>{
 // get User Profile
 const userProfile = async (req,res,next)=>{
 
-  try {
-    let user = await User.findById(req.id).select("-password").lean()
-    if(!user ) throw new Error(`User not found`)
-    return res.status(200).json({user})
-  } catch (error) {
-    next(error)
-  } 
+    try {
+        let user = await User.findById(req.id);
+
+        if (user) {
+          return res.status(201).json({
+            _id: user._id,
+            avatar: user.avatar,
+            name: user.name,
+            email: user.email,
+            verified: user.verified,
+            admin: user.admin,
+          });
+        } else {
+          let error = new Error("User not found");
+          error.statusCode = 404;
+          next(error);
+        }
+      } catch (error) {
+        next(error);
+      }
 }
 
-// update profile 
+// update profile
 const updateProfile = async (req,res,next)=>{
   try {
-    const {name,email,newPassword,oldPassword,id} = req.body
-    let user = await User.findById(id)
+    const {name,email,password} = req.body
+    let user = await User.findById(req.id)
 
     if(!user) throw new Error(`User not found`)
-    
+
     user.email = email || user.email
     user.name = name || user.name
-      if(newPassword && newPassword.length <8) {
+      if(password !== "" && password.length < 8) {
         throw new Error(`Password must be at least 8 characters`)
-    }else{
-      if(await user.passwordCompare(oldPassword)){
-        let hashedPassword = await bcrypt.hash(newPassword,10)
+    }else if(password.length > 8){
+        let hashedPassword = await bcrypt.hash(password,10)
         user.password = hashedPassword
-      }else{
-        throw new Error("invalid old password")
-      }
     }
-    
+
 
     const updatedUser = await user.save()
     res.status(200).json({data: updatedUser,message: "updated successfully"})
   } catch (error) {
 
     next(error)
-    
+
   }
 }
 
@@ -114,7 +123,7 @@ const updateProfilePicture = async(req,res,next)=>{
       }else{
         if(req.file){
           const updatedUser = await User.findByIdAndUpdate(req.id,{
-            avatar:req.file.filename, 
+            avatar:req.file.filename,
           },{new:true})
 
           res.status(200).json({data: updatedUser,message: "profile picture updated successfully"})
