@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const dbConnect = require("./config/db")
 const cors = require("cors")
+const path =require("path")
 const errorHandler = require("./middlewares/errorHandler")
 
 dotenv.config()
@@ -16,7 +17,7 @@ app.use(cors())
 app.use(express.json());
 app.use("/api/users",require("./routes/userRoutes"))
 
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));;
 
 // handle undefined routes
 app.use(errorHandler.invalidRoute)

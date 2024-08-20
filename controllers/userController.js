@@ -19,7 +19,14 @@ const registerUser = async (req, res,next) => {
     return res
       .status(201)
       .json({
-        user: newUser,
+        user: {
+          _id: newUser._id,
+          avatar: newUser.avatar,
+          name: newUser.name,
+          email: newUser.email,
+          verified: newUser.verified,
+          admin: newUser.admin,
+        },
         token: await newUser.generateJWT(),
         message: "user created successfully",
       });
@@ -37,7 +44,15 @@ try {
   const isMatch =  await bcrypt.compare(password, user.password)
   if(!isMatch ) throw new Error(`Invalid Password`)
   return res.status(200).json({
-      user,
+      user:{
+          _id: user._id,
+          avatar: user.avatar,
+          name: user.name,
+          email: user.email,
+          verified: user.verified,
+          admin: user.admin,
+        
+      },
       token: await user.generateJWT(),
       message: "login successful",
     });
@@ -103,8 +118,15 @@ const updateProfile = async (req,res,next)=>{
     }
 
 
-    const updatedUser = await user.save()
-    res.status(200).json({data: updatedUser,message: "updated successfully"})
+    await user.save()
+    res.status(200).json({data: {
+      _id: user._id,
+      avatar: user.avatar,
+      name: user.name,
+      email: user.email,
+      verified: user.verified,
+      admin: user.admin,
+    },message: "updated successfully"})
   } catch (error) {
 
     next(error)
@@ -122,6 +144,11 @@ const updateProfilePicture = async(req,res,next)=>{
         next(error)
       }else{
         if(req.file){
+          const user = await User.findById(req.id)
+          if(user.avatar !== ""){
+            fileRemover(user.avatar)
+            console.log("current file removed")
+          }
           const updatedUser = await User.findByIdAndUpdate(req.id,{
             avatar:req.file.filename,
           },{new:true})
@@ -145,3 +172,4 @@ module.exports = {
   getAllusers,
   login,userProfile,updateProfile,updateProfilePicture
 };
+ 
