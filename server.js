@@ -15,7 +15,9 @@ const Port = process.env.PORT || 5000
 // Middleware to parse JSON request bodies
 app.use(cors())
 app.use(express.json());
+//mange different routes 
 app.use("/api/users",require("./routes/userRoutes"))
+app.use("/api/posts",require("./routes/postRoutes"))
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));;
 

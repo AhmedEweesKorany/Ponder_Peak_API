@@ -18,6 +18,10 @@ const authGurad = async (req, res, next) => {
         err.statusCode = 401;
         next(err);
       }
+    }else{
+      let err = new Error("not authorized,no token");
+      err.statusCode = 404;
+      next(err);
     }
   } catch (error) {
     let err = new Error("not authorized,no token");

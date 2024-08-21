@@ -139,6 +139,7 @@ const updateProfilePicture = async(req,res,next)=>{
   try {
     const upload = uploadPicture.single('profilePicture')
     upload(req,res,async (err)=>{
+      
       if(err){
         const error = new Error("unkonwn error uploading "+ err.message)
         next(error)
@@ -147,7 +148,6 @@ const updateProfilePicture = async(req,res,next)=>{
           const user = await User.findById(req.id)
           if(user.avatar !== ""){
             fileRemover(user.avatar)
-            console.log("current file removed")
           }
           const updatedUser = await User.findByIdAndUpdate(req.id,{
             avatar:req.file.filename,
