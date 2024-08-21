@@ -2,7 +2,7 @@ const Post = require("../models/Post");
 const bcrypt = require("bcryptjs")
 const uploadPicture = require("../middlewares/uploadPictureMiddleware");
 const fileRemover = require("../utils/fileRemover");
-
+const Comment = require("../models/Comment")
 
 // get all posts
 const getAllPosts = async(req,res,next)=>{
@@ -115,6 +115,7 @@ const deletePost = async (req,res,next)=>{
       return
     }
     await Post.deleteOne({slug:req.params.slug})
+    await Comment.deleteMany({post:post._id})
     res.status(200).json({
       message: "post deleted successfully",
     })
