@@ -8,7 +8,13 @@ const Comment = require("../models/Comment")
 const getAllPosts = async(req,res,next)=>{
 
   try {
-    let posts = await Post.find()
+    let posts = await Post.find().populate([
+      {
+        path: "user",
+         select: ["name","avatar","verified"]
+        }
+    
+    ])
     return res.status(200).json({posts})
   } catch (error) {
       error.message = error.message || "internal server error"
@@ -124,7 +130,31 @@ const deletePost = async (req,res,next)=>{
   }
 }
 
+// get post by slug
+const getPostBySlug = async (req,res,next)=>{
+  try {
+    const post = await Post.findOne({slug:req.params.slug}).populate([
+      {
+        path: "user",
+         select: ["name","avatar","verified"]
+        }
+
+    ])
+    if(!post){
+      const error = new Error("post not found")
+      error.statusCode = 404
+      next(error)
+      return
+    }
+    res.status(200).json({
+      post
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
-  getAllPosts,createPost,updatePost,deletePost
+  getAllPosts,createPost,updatePost,deletePost,getPostBySlug
 };
  
