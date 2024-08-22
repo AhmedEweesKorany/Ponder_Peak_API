@@ -11,7 +11,7 @@ const getAllPosts = async(req,res,next)=>{
     let posts = await Post.find().populate([
       {
         path: "user",
-         select: ["name","avatar","verified"]
+         select: ["name","avatar","verified","_id"]
         }
     
     ])
@@ -98,7 +98,7 @@ const updatePost = async(req,res,next)=>{
             fileRemover(post.avatar)
           }
           post.avatar = req.file.filename
-          handleUpdatePostData(req.body.document)
+          handleUpdatePostData(req.body.updatedData)
           return;
         }
         handleUpdatePostData(req.body.document)

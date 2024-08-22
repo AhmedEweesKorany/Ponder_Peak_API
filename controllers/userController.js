@@ -167,9 +167,20 @@ const updateProfilePicture = async(req,res,next)=>{
     next(error)
   }
 }
+
+const deleteUser = async(req,res,next)=>{
+  try {
+    const user = await User.findById(req.id)
+    if(!user) throw new Error(`User not found`)
+    await user.remove()
+    res.status(200).json({message: "user deleted successfully"})
+  } catch (error) {
+    next(error)
+  }
+}
 module.exports = {
   registerUser,
   getAllusers,
-  login,userProfile,updateProfile,updateProfilePicture
+  login,userProfile,updateProfile,updateProfilePicture,deleteUser
 };
  

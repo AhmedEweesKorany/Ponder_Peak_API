@@ -1,7 +1,8 @@
 const bcrypt = require("bcryptjs")
 const uploadPicture = require("../middlewares/uploadPictureMiddleware");
 const fileRemover = require("../utils/fileRemover");
-const Comment = require("../models/Comment")
+const Comment = require("../models/Comment");
+const User = require("../models/User");
 
 // get all posts
 const getPostComment = async(req,res,next)=>{
@@ -22,6 +23,44 @@ const getPostComment = async(req,res,next)=>{
     }
 }
 
+// get all comments
+const getAllComments = async(req,res,next)=>{
+    try {
+        const user = await User.findById(req.id)
+        if(user.admin){
+            const comments = await Comment.find().populate([
+                {
+                  path: "user",
+                   select: ["name","avatar","verified"]
+                  },
+                {
+                    path: "post",
+                     select: ["title","avatar"]
+                    
+                }
+                ])
+                  return res.status(200).json({comments})
+                }else{
+                    const comments = await Comment.find({user:req.id}).populate([
+                        {
+                          path: "user",
+                           select: ["name","avatar","verified"]
+                          }
+                          ,
+                          {
+                              path: "post",
+                               select: ["title","avatar"]
+                              
+                          }
+                        ])
+                          return res.status(200).json({comments})
+                }
+        }
+            catch (error) {
+                error.message = error.message || "internal server error"
+                next(error)
+            }
+}
 // create a new comment
 const createComment = async(req,res,next)=>{
     try {
@@ -83,6 +122,6 @@ const updateComment = async (req,res,next)=>{
 }
 
 module.exports = {
-  getPostComment,createComment,deleteComment,updateComment
+  getPostComment,createComment,deleteComment,updateComment,getAllComments
 };
  
