@@ -77,6 +77,15 @@ const updatePost = async(req,res,next)=>{
 
     const handleUpdatePostData = async (data)=>{
       const {title,caption,slug,body,tags} = JSON.parse(data)
+      if(slug){
+        const postWithSameSlug = await Post.findOne({slug})
+        if(postWithSameSlug && postWithSameSlug._id.toString() !== post._id.toString()){
+          const error = new Error("slug already exists")
+          error.statusCode = 400
+          next(error)
+          return
+        }
+      }
       post.title = title || post.title
       post.caption = caption || post.caption
       post.slug = slug || post.slug
