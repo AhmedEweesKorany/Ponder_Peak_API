@@ -136,6 +136,9 @@ const deletePost = async (req,res,next)=>{
     }
     await Post.deleteOne({slug:req.params.slug})
     await Comment.deleteMany({post:post._id})
+
+    // remove post image from uploads folder
+    fileRemover(post.avatar)
     res.status(200).json({
       message: "post deleted successfully",
     })

@@ -30,4 +30,21 @@ const authGurad = async (req, res, next) => {
   }
 };
 
-module.exports = authGurad;
+const IsAdmin = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.id);
+    if (user.admin) {
+      next();
+    } else {
+      let err = new Error("you are not admin");
+      err.statusCode = 404;
+      next(err);
+    }
+  } catch (error) {
+    let err = new Error("not authorized,no token");
+    err.statusCode = 404;
+    next(err);
+  }
+};
+
+module.exports = {authGurad,IsAdmin};

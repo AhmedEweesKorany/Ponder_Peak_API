@@ -2,6 +2,8 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs")
 const uploadPicture = require("../middlewares/uploadPictureMiddleware");
 const fileRemover = require("../utils/fileRemover");
+const Post = require("../models/Post");
+const Comment = require("../models/Comment");
 
 // create user register function
 
@@ -170,17 +172,51 @@ const updateProfilePicture = async(req,res,next)=>{
 
 const deleteUser = async(req,res,next)=>{
   try {
-    const user = await User.findById(req.id)
+    const user = await User.findById(req.params.id)
     if(!user) throw new Error(`User not found`)
-    await user.remove()
+    await user.deleteOne({_id:req.params.id})
+    // delete user avatar from uploads folder
+    fileRemover(user.avatar)
+    // delete user posts and comments from database 
+    await Post.deleteMany({user:req.params.id})
+    await Comment.deleteMany({user:req.params.id})
     res.status(200).json({message: "user deleted successfully"})
   } catch (error) {
     next(error)
   }
 }
+
+
+const makeVreified = async (req,res,next)=>{
+  try {
+    const user = await User.findById(req.params.id)
+    if(!user) throw new Error(`User not found`)
+    if(user.verified) throw new Error(`User already verified`)
+    user.verified = true
+  await user.save()
+  res.status(200).json({message: "user verified successfully"})
+  } catch (error) {
+    next(error)
+  }
+}
+
+const makeAdmin = async (req,res,next)=>{
+  try {
+    const user = await User.findById(req.params.id)
+    if(!user) throw new Error(`User not found`)
+    if(user.admin) throw new Error(`User already Admin`)
+    user.admin = true
+  await user.save()
+  res.status(200).json({message: "user is Now  Admin"})
+  } catch (error) {
+    next(error)
+  }
+}
+
+
 module.exports = {
   registerUser,
   getAllusers,
-  login,userProfile,updateProfile,updateProfilePicture,deleteUser
+  login,userProfile,updateProfile,updateProfilePicture,deleteUser,makeVreified,makeAdmin
 };
  

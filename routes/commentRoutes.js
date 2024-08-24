@@ -1,7 +1,7 @@
 const express = require("express")
 const commentController = require("../controllers/commentController")
 const router = express.Router()
-const authGurad = require("../middlewares/authMiddleware")
+const {authGurad,IsAdmin} = require("../middlewares/authMiddleware")
 
 // user Routes
 router.get('/post/:id',commentController.getPostComment)
