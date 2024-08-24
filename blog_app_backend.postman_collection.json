@@ -1,0 +1,406 @@
+{
+	"info": {
+		"_postman_id": "35973ddc-7c06-4f45-8388-512f74205bd1",
+		"name": "blog_app_backend",
+		"description": "Collection for blog app backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30407451"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create new user (register)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"othman\",\n  \"email\":\"othman@gmail.com\",\n  \"password\":\"123456789\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/users/register",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAlIsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/users/all",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"email\":\"othman2@gmail.com\",\n  \"password\":\"1234567899\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/users/login",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get userProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTNmNmY0NDQzNGFiN2I0MDE4YWJlNSIsImlhdCI6MTcyMjAyMTY1MCwiZXhwIjoxNzI0NjEzNjUwfQ.dnYUfYXK2SjKpIoIohTTWUzRjspc66XCSTSsZe3-jzk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/users/profile",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTNmNmY0NDQzNGFiN2I0MDE4YWJlNSIsImlhdCI6MTcyMjAyMTY1MCwiZXhwIjoxNzI0NjEzNjUwfQ.dnYUfYXK2SjKpIoIohTTWUzRjspc66XCSTSsZe3-jzk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"othman2\",\n  \"email\":\"othman2@gmail.com\",\n  \"oldPassword\":\"1234567899\",\n  \"newPassword\":\"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/users/updateProfile",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"updateProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProfile Picture",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTNmNmY0NDQzNGFiN2I0MDE4YWJlNSIsImlhdCI6MTcyMjAyNjQ4OCwiZXhwIjoxNzI0NjE4NDg4fQ.5-Z_AVAr3YUHZ40W9J51UBUfUs1wjW7P59MVib2eEZQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/users/updateProfilePicture",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"updateProfilePicture"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "create a new post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQwZDlhNzdhNzM2MzIzNDY2MzhjYiIsImlhdCI6MTcyNDE5NzYwNywiZXhwIjoxNzI2Nzg5NjA3fQ._VX2qqvzTuNKISsd9Yn7V0f7-635LqIceoGcxyTSZ_c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "postImage",
+									"type": "file",
+									"src": "/home/ahmed/Downloads/newww.jpg"
+								},
+								{
+									"key": "documnet",
+									"value": "{\n    \"title\":\"this is title\",\n    \"caption\":\"caption\",\n    \"slug\":\"f43f-ed54-d3445-d444d\",\n    \"body\":\"this is body content\",\n    \"tags\":[\"sport\",\"gym\"]\n}",
+									"type": "text"
+								},
+								{
+									"key": "caption",
+									"value": "this s post caption",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "slug",
+									"value": "unique slug23",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "body",
+									"value": "this is post body",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tags",
+									"value": "category tags",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "66c529fafeba270abc7e36c5",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/posts/create",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all posts",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQwZDlhNzdhNzM2MzIzNDY2MzhjYiIsImlhdCI6MTcyNDE5NzYwNywiZXhwIjoxNzI2Nzg5NjA3fQ._VX2qqvzTuNKISsd9Yn7V0f7-635LqIceoGcxyTSZ_c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "postImage",
+									"type": "file",
+									"src": "/home/ahmed/Pictures/Screenshots/Screenshot from 2024-08-20 06-30-12.png"
+								},
+								{
+									"key": "document",
+									"value": "{\"title\":\"a7med\"}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{domain}}/api/posts/update/f43f-ed54-d3445-d444d",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"update",
+								"f43f-ed54-d3445-d444d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzQwZDlhNzdhNzM2MzIzNDY2MzhjYiIsImlhdCI6MTcyNDE5NzYwNywiZXhwIjoxNzI2Nzg5NjA3fQ._VX2qqvzTuNKISsd9Yn7V0f7-635LqIceoGcxyTSZ_c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/posts/delete/f43f-ed54-d3445-d444d",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"delete",
+								"f43f-ed54-d3445-d444d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get single post by slug",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "getPostComments",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "createComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/comments/create",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all comments",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
