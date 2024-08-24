@@ -33,10 +33,12 @@ const createPost = async(req,res,next)=>{
             const error = new Error("unkonwn error uploading "+ err.message)
             next(error)
           }else{
-          try {
+          try 
+          {
+            
             const user =req.id
             const slug = uuid.v4()
-            const {title,caption,body,tags} = JSON.parse(req.body.documnet)
+            const {title,caption,body,tags} = JSON.parse(req.body.document)
             const avatar = req.file.filename
             const post = new Post({
               title,
@@ -53,7 +55,9 @@ const createPost = async(req,res,next)=>{
               post
             })
           } catch (error) {
-            req.file.filename && fileRemover(req.file.filename)
+            req.file ? req.file.filename && fileRemover(req.file.filename) :null
+
+            
             next(error)
           }
           }
