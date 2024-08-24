@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs")
 const uploadPicture = require("../middlewares/uploadPictureMiddleware");
 const fileRemover = require("../utils/fileRemover");
 const Comment = require("../models/Comment")
-
+const uuid = require("uuid")
 // get all posts
 const getAllPosts = async(req,res,next)=>{
 
@@ -35,7 +35,8 @@ const createPost = async(req,res,next)=>{
           }else{
           try {
             const user =req.id
-            const {title,caption,slug,body,tags} = JSON.parse(req.body.documnet)
+            const slug = uuid.v4()
+            const {title,caption,body,tags} = JSON.parse(req.body.documnet)
             const avatar = req.file.filename
             const post = new Post({
               title,
@@ -98,7 +99,7 @@ const updatePost = async(req,res,next)=>{
             fileRemover(post.avatar)
           }
           post.avatar = req.file.filename
-          handleUpdatePostData(req.body.updatedData)
+          handleUpdatePostData(req.body.document)
           return;
         }
         handleUpdatePostData(req.body.document)
