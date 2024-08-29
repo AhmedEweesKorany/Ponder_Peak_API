@@ -26,6 +26,10 @@ app.use("/api/users",require("./routes/userRoutes"))
 app.use("/api/posts",require("./routes/postRoutes"))
 app.use("/api/comments",require("./routes/commentRoutes"))
 
+// main page 
+app.get('/', (req, res) => {
+    res.send('Hello From API main page');
+});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));;
 
 // handle undefined routes
